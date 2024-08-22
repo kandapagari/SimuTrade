@@ -1,0 +1,41 @@
+[project]
+name = "simutrade"
+version = "0.1.0"
+description = "Simulate trading strategies using historical data and backtest them using various metrics and visualizations."
+authors = [
+    { name = "Pavan Kumar Kandapagari", email = "pavan.kandapagari@agile-robots.com" },
+]
+dependencies = [
+    "matplotlib>=3.9.2",
+    "numpy==1.26.4",
+    "opencv-python-headless>=4.10.0.84",
+    "pandas>=2.2.2",
+    "ta-lib>=0.4.32",
+    "yfinance>=0.2.41",
+    "typer[all]>=0.12.4",
+    "tqdm>=4.66.5",
+]
+readme = "README.md"
+requires-python = ">= 3.11"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = ["black", "isort", "yapf"]
+excluded-dependencies = ["cffi"]
+generate-hashes = true
+
+[tool.rye.scripts]
+lint = { chain = ["lint:black", "clean"] }
+"lint:black" = "black src/simutrade"
+clean = " rm -rf .coverage .cache  .mypy_cache .ruff_cache .pytest_cache ./**/__pycache__ ./**/*.pyc ./**/*.pyo ./**/notebooks/.ipynb_checkpoints ./**/*.spec ./.mypy_cache ./**/*.egg-info cov_html build dist "
+
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["./src/simutrade"]
